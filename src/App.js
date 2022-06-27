@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -6,14 +6,22 @@ import {
   increment,
   getGet,
   incrementByAmount,
+  getList,
 } from "./counterSlice";
 
 function App() {
   const count = useSelector((state) => state.counters.value);
+  const list = useSelector((state) => state.counters.list);
   const count2 = useSelector(getGet);
   const dispatch = useDispatch();
 
   const [incrementAmount, setIncrementAmount] = useState("2");
+
+  useEffect(() => {
+    dispatch(getList());
+  }, [dispatch]);
+  // console.log(list);
+
   return (
     <div>
       <div>
@@ -44,6 +52,9 @@ function App() {
           Add Amount
         </button>
         <h2>{incrementAmount}</h2>
+        {list.map((a, b) => {
+          return <li key={b}>{a.title}</li>;
+        })}
       </div>
     </div>
   );

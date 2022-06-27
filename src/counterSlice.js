@@ -1,8 +1,17 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+
+export const getList = createAsyncThunk("GET_TODO", async () => {
+  const response = await axios.get(
+    "https://jsonplaceholder.typicode.com/posts"
+  );
+  return response.data;
+});
 
 const initialState = {
   value: 0,
   name: "서현",
+  list: [],
 };
 
 export const counterSlice = createSlice({
@@ -20,9 +29,15 @@ export const counterSlice = createSlice({
       state.value += action.payload;
     },
   },
+  extraReducers: {
+    [getList.fulfilled]: (state, action) => {
+      state.list = [...action.payload];
+    },
+  },
 });
 
-export const { increment, decrement, incrementByAmount } = counterSlice.actions;
+export const { increment, decrement, incrementByAmount, addList } =
+  counterSlice.actions;
 
 export default counterSlice.reducer;
 
