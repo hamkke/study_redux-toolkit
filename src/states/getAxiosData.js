@@ -7,6 +7,17 @@ export const getList = createAsyncThunk("GET_LIST", async () => {
   );
   return response.data;
 });
+/*
+export const getList = createAsyncThunk("GET_LIST", () => {
+  const response = axios
+    .get("https://jsonplaceholder.typicode.com/posts")
+    .then((res) => {
+      return res.data;
+    });
+  return response;
+});
+
+*/
 
 const initialState = {
   list: [],
