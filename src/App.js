@@ -52,7 +52,6 @@ function App() {
         </button>
         <h2>지금 나는 {STATUS} 상태</h2>
         {list.map((a, b) => {
-          console.log(a);
           return <li key={`list-${b}`}>{a.title}</li>;
         })}
       </div>
