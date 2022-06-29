@@ -1,18 +1,18 @@
 import { useState, useEffect } from "react";
-
 import { useSelector, useDispatch } from "react-redux";
 import {
   decrement,
   increment,
-  getGet,
   incrementByAmount,
-  getList,
-} from "./counterSlice";
+  getGet,
+} from "./states/counterSlice";
+import { getList } from "./states/getAxiosData";
 
 function App() {
-  const count = useSelector((state) => state.counters.value);
-  const list = useSelector((state) => state.counters.list);
+  const count = useSelector((state) => state.counterSlice.value);
   const count2 = useSelector(getGet);
+  const list = useSelector((state) => state.getDataSlice.list);
+  const STATUS = useSelector((state) => state.getDataSlice.status);
   const dispatch = useDispatch();
 
   const [incrementAmount, setIncrementAmount] = useState("2");
@@ -20,7 +20,6 @@ function App() {
   useEffect(() => {
     dispatch(getList());
   }, [dispatch]);
-  // console.log(list);
 
   return (
     <div>
@@ -51,9 +50,10 @@ function App() {
         >
           Add Amount
         </button>
-        <h2>{incrementAmount}</h2>
+        <h2>지금 나는 {STATUS} 상태</h2>
         {list.map((a, b) => {
-          return <li key={b}>{a.title}</li>;
+          console.log(a);
+          return <li key={`list-${b}`}>{a.title}</li>;
         })}
       </div>
     </div>
